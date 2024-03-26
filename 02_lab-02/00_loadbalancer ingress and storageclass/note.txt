@@ -15,3 +15,5 @@ nfs_base_url=https://raw.githubusercontent.com/kubernetes-sigs/nfs-ganesha-serve
 kubectl create -f ${nfs_base_url}/deployment.yaml
 kubectl create -f ${nfs_base_url}/rbac.yaml
 kubectl create -f ${nfs_base_url}/class.yaml
+
+kubectl patch storageclass example-nfs -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
