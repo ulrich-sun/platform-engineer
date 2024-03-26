@@ -1,0 +1,5 @@
+# vagrant stack : https://github.com/eazytraining/kubernetes-certification-stack
+
+git clone https://github.com/eazytraining/kubernetes-certification-stack
+cd kubernetes-certification-stack
+vagrant up
