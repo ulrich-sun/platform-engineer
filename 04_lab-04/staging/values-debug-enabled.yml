@@ -7,4 +7,4 @@ conference-app:
       existingSecret: staging-environment-redis
   postgresql:
     auth: 
-      existingSecret: staging-environment-postgresql  
+      existingSecret: staging-environment-postgresql
