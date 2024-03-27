@@ -21,7 +21,7 @@ cd ../06_frontend/
 kubectl apply -f .
 kubectl get po
 
-## Apply all stack at once
+## OR Apply all stack at once
 find . -type f -name '*.yml' | while read file; do
     kubectl apply -f "$file"
 done
@@ -45,6 +45,13 @@ kubectl -n ingress-nginx get service ingress-nginx-controller -o=jsonpath='{.sta
 echo "export PATH=\"${KREW_ROOT:-$HOME/.krew}/bin:$PATH\"" >> $HOME/.bashrc
 
 kubectl graph -f all-in-one.yaml | dot -T svg -o /tmp/pods.svg
+
+# scaling
+kubectl scale --replicas=2 deployments/conference-frontend-deployment
+kubectl set env deployment/conference-frontend-deployment ➥FEATURE_DEBUG_ENABLED=true
+
+# build resiliency
+kubectl scale --replicas=0 deployments/conference-agenda-service-deployment
 
 # delete apply
 cd ..
