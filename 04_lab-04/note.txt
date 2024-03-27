@@ -19,3 +19,25 @@ Revision: "HEAD"
 Path: "04_lab-04/staging"
 Cluster: "https://kubernetes.default.svc"
 Namespace: "staging"
+
+# if your github chart release OCI are private
+kubectl -n argocd apply -f  - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: oci-ghcr-secrets
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  name: oci-ghcr-secrets
+  url: ghcr.io/<your github login>
+  enableOCI: "true"
+  type: helm
+  username: "<your github login>"
+  password: "<your github token>"
+  ForceHttpBasicAuth: "true"
+EOF
+
+# To view the app
+kubectl port-forward svc/frontend -n staging 8081:80
