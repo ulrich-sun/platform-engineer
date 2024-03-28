@@ -41,3 +41,5 @@ EOF
 
 # To view the app
 kubectl port-forward svc/frontend -n staging 8081:80
+
+# Delete app in argoCD
