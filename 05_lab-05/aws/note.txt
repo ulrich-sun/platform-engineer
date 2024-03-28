@@ -35,9 +35,9 @@ spec:
 EOF
 
 
-kubectl apply -f my-db-keyvalue.yaml
-kubectl apply -f my-db-sql.yaml
-kubectl apply -f aws-messagebroker-kafka.yaml
+kubectl apply -f my-db-keyvalue.yml
+kubectl apply -f my-db-sql.yml
+kubectl apply -f aws-messagebroker-kafka.yml
 
 # Make sure to fill in the commented out aspects of the yaml file based off values from newly created AWS infrastructure.
 
