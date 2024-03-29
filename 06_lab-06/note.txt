@@ -1,11 +1,30 @@
 # Install vcluster
 curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/download/v0.19.5/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
 
+SA=$(kubectl -n crossplane-system get sa -o name | grep provider-helm | sed -e 's|serviceaccount\/|crossplane-system:|g')
+kubectl create clusterrolebinding provider-helm-admin-binding --clusterrole cluster-admin --serviceaccount="${SA}"
+
 # create XRD
 kubectl apply -f resources/definitions
 
 # Create compositions
 kubectl apply -f resources/compositions
+
+kubectl -n crossplane-system apply -f  - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ghcr-credentials
+  namespace: crossplane-system
+stringData:
+  name: ghcr-credentials
+  url: ghcr.io/<your github login>
+  enableOCI: "true"
+  type: helm
+  username: "<your github login>"
+  password: "<your github token>"
+  ForceHttpBasicAuth: "true"
+EOF
 
 # Create new dev env
 kubectl apply -f team-a-dev-env.yml

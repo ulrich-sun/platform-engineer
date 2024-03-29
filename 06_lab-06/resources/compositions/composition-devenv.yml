@@ -30,7 +30,11 @@ spec:
               multiNamespaceMode:
                 enabled: true
               sync:
+                persistentvolumeclaims:
+                  enabled: false
                 #used for plugins
+              storage:
+                persistence: false
               syncer:
                 extraArgs: [] # patched
               #     - --out-kube-config-server=https://cluster-1.cluster-1.svc
@@ -76,7 +80,7 @@ spec:
             strategy: string
             string:
               fmt: "--tls-san=%s.%s.svc"
-          toFieldPath: spec.forProvider.values.syncer.extraArgs[2]    
+          toFieldPath: spec.forProvider.values.syncer.extraArgs[2]
       readinessChecks:
       - type: MatchString
         fieldPath: status.atProvider.state
@@ -104,37 +108,40 @@ spec:
         - fromFieldPath: metadata.name
           toFieldPath: metadata.name
       readinessChecks:
-      - type: None 
+      - type: None
     - name: app-chart-vcluster
       base:
         apiVersion: helm.crossplane.io/v1beta1
         kind: Release
         metadata:
-          annotations: 
+          annotations:
             crossplane.io/external-name: conference-app
         spec:
           forProvider:
             chart:
               name: conference-app
-              repository: oci://ghcr.io/diranetafen/conference-app
+              repository: oci://ghcr.io/diranetafen
               version: "v1.0.0"
+              pullSecretRef:
+                name: ghcr-credentials
+                namespace: crossplane-system
             values:
               install:
                 infrastructure: #patched
               services:
-                frontend: 
-                  debug: #patched  
+                frontend:
+                  debug: #patched
             namespace: default
-          providerConfigRef: 
+          providerConfigRef:
             name: #patched
       patches:
         - fromFieldPath: metadata.name
           toFieldPath: spec.providerConfigRef.name
         - fromFieldPath: spec.parameters.installInfra
-          toFieldPath: spec.forProvider.values.install.infrastructure  
+          toFieldPath: spec.forProvider.values.install.infrastructure
         - fromFieldPath: spec.parameters.frontend.debug
           toFieldPath: spec.forProvider.values.services.frontend.debug
       readinessChecks:
       - type: MatchString
         fieldPath: status.atProvider.state
-        matchString: deployed    
+        matchString: deployed
