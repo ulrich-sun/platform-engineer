@@ -1,13 +1,13 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: dev.env.salaboy.com
+  name: dev.env.eazytraining.io
   labels:
     type: development
 spec:
   writeConnectionSecretsToNamespace: crossplane-system
   compositeTypeRef:
-    apiVersion: salaboy.com/v1alpha1
+    apiVersion: eazytraining.io/v1alpha1
     kind: XEnvironment
   resources:
     - name: vcluster-helm-release
