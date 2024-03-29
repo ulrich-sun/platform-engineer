@@ -29,3 +29,13 @@ EOF
 # Create new dev env
 kubectl apply -f team-a-dev-env.yml
 
+# get vcluster name
+kubectl get releases
+
+# connect to specific cluster
+vcluster connect <team-a-dev-env> --server https://localhost:8443 -- bash 
+
+kubectl get ns
+kubectl get po
+# expose app from the choosen cluster
+kubectl port-forward svc/frontend 8080:80 --address 0.0.0.0
