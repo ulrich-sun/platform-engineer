@@ -1,0 +1,12 @@
+# Install vcluster
+curl -L -o vcluster "https://github.com/loft-sh/vcluster/releases/download/v0.19.5/vcluster-linux-amd64" && sudo install -c -m 0755 vcluster /usr/local/bin && rm -f vcluster
+
+# create XRD
+kubectl apply -f resources/definitions
+
+# Create compositions
+kubectl apply -f resources/compositions
+
+# Create new dev env
+kubectl apply -f team-a-dev-env.yaml
+
