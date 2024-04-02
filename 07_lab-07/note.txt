@@ -33,7 +33,7 @@ kubectl get subscription
 # verify application
 kubectl port-forward svc/frontend -n default 8080:80 --address 0.0.0.0
 
-# Play with openfeature
+# Play with openfeature (deployed using openfeature.yaml helm template file)
 kubectl get cm flag-configuration -o go-template='{{index .data "flag-config.json"}}' > flag-config.json
 
 # enable debug mode
