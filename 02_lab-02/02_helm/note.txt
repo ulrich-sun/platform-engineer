@@ -26,3 +26,5 @@ helm push conference-app-v1.0.0.tgz oci://ghcr.io/<your github username>
 
 # Uninstall chart
 helm uninstall conference-app
+
+#### IMPORTANT : take a snapshot of both master and network node
