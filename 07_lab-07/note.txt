@@ -43,3 +43,4 @@ kubectl create cm flag-configuration --from-file=flag-config.json=flag-config.js
 kubectl port-forward svc/frontend -n default 8080:80 --address 0.0.0.0
 
 helm uninstall conference-app
+helm uninstall dapr -n dapr-system

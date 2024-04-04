@@ -1,0 +1,29 @@
+# Install argo-rollouts
+kubectl create namespace argo-rollouts
+kubectl apply -n argo-rollouts -f https://github.com/argoproj/argo-rollouts/releases/latest/download/install.yaml
+kubectl argo rollouts dashboard
+
+# deploy kafka
+helm install kafka oci://registry-1.docker.io/bitnamicharts/kafka --version 22.1.5 --set "provisioning.topics[0].name=events-topic" --set "provisioning.topics[0].partitions=1" --set "persistence.size=1Gi" 
+
+# deploy notification app
+kubectl apply -f canary/
+
+kubectl argo rollouts get rollout notifications-service-canary --watch
+
+# run the update in other terminal
+kubectl argo rollouts set image notifications-service-canary \
+  notifications-service=salaboy/notifications-service-0e27884e01429ab7e350cb5dff61b525:v1.1.0
+
+# curl ingress (4 times to observe percentage of repartition)
+curl 192.168.99.150/service/info | jq
+
+# view the status also in argo rollout dashboard
+
+# complete release migration to the canary one 
+kubectl argo rollouts promote notifications-service-canary
+
+# curl ingress (4 times to observe percentage of repartition)
+curl 192.168.99.150/service/info | jq
+
+kubectl delete -f canary-release/
