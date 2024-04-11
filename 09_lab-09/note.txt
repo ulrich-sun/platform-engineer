@@ -10,7 +10,7 @@ kubectl apply -f keptntask.yaml
 # access Jaeger
 make port-forward-jaeger
 
-# access Grafana
+# access Grafana login : admin password : admin
 make port-forward-grafana
 
 # Install application
