@@ -27,7 +27,7 @@ port-forward-grafana:
 	make -C support/observability port-forward-grafana GRAFANA_PORT_FORWARD=$(GRAFANA_PORT_FORWARD)
 
 .PHONY: port-forward-prometheus
-port-forward-grafana:
+ port-forward-prometheus:
 	make -C support/observability port-forward-prometheus
 
 .PHONY: uninstall-observability
