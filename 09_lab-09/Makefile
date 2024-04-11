@@ -24,7 +24,7 @@ port-forward-jaeger:
 
 .PHONY: port-forward-grafana
 port-forward-grafana:
-	make -C support/observability port-forward-grafana GRAFANA_PORT_FORWARD=$(GRAFANA_PORT_FORWARD) --address 0.0.0.0
+	make -C support/observability port-forward-grafana GRAFANA_PORT_FORWARD=$(GRAFANA_PORT_FORWARD)
 
 .PHONY: uninstall-observability
 uninstall-observability:
