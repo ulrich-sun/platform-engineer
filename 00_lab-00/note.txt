@@ -2,4 +2,8 @@
 
 git clone https://github.com/eazytraining/kubernetes-certification-stack
 cd kubernetes-certification-stack
+# Update RAM and CPU according to your computer (4Go RAM and 4 vCPU are recommanded per VM)
 vagrant up
+
+# secure kubeconfig file, connect on master node as root user then run the following command
+chmod 600 /root/.kube/config

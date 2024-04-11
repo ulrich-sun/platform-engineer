@@ -65,7 +65,7 @@ port-forward-jaeger:
 	@echo "CTRL-c to stop port-forward"
 
 	@echo ""
-	kubectl port-forward -n "$(TOOLKIT_NAMESPACE)" svc/jaeger-query 16686
+	kubectl port-forward -n "$(TOOLKIT_NAMESPACE)" svc/jaeger-query 16686 --address 0.0.0.0
 
 
 .PHONY: port-forward-prometheus
@@ -74,7 +74,7 @@ port-forward-prometheus:
 	@echo "Open Prometheus in your Browser: http://localhost:9090"
 	@echo "CTRL-c to stop port-forward"
 	@echo ""
-	kubectl -n monitoring port-forward svc/prometheus-k8s 9090
+	kubectl -n monitoring port-forward svc/prometheus-k8s 9090 --address 0.0.0.0
 
 .PHONY: port-forward-grafana
 port-forward-grafana:
@@ -82,7 +82,7 @@ port-forward-grafana:
 	@echo "Open Grafana in your Browser: http://localhost:$(GRAFANA_PORT_FORWARD)"
 	@echo "CTRL-c to stop port-forward"
 	@echo ""
-	kubectl -n monitoring port-forward svc/grafana $(GRAFANA_PORT_FORWARD):3000
+	kubectl -n monitoring port-forward svc/grafana $(GRAFANA_PORT_FORWARD):3000 --address 0.0.0.0
 
 .PHONY: import-grafana-dashboard
 import-grafana-dashboard:
