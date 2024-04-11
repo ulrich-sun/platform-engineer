@@ -13,6 +13,9 @@ make port-forward-jaeger
 # access Grafana login : admin password : admin
 make port-forward-grafana
 
+# access prometheus
+make port-forward-prometheus
+
 # Install application
 helm install conference oci://registry-1.docker.io/salaboy/conference-app --version v1.0.0
 
