@@ -5,7 +5,6 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 
 # install chart
-conference-app
 helm dependency build conference-app
 helm install conference-app conference-app
 
