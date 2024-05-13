@@ -14,8 +14,8 @@ spec:
   resources:
     - name: redis
       base:
-        apiVersion: cache.aws.crossplane.io/v1alpha1
-        kind: CacheCluster
+        apiVersion: elasticache.aws.upbound.io/v1beta1
+        kind: Cluster
         metadata:
           annotations:
             crossplane.io/external-name: # patched
@@ -23,7 +23,7 @@ spec:
           providerConfigRef:
             name: default
           forProvider:
-            region: us-west-2
+            region: us-east-1
             numCacheNodes: 1
             cacheNodeType: cache.t3.micro
             engine: redis

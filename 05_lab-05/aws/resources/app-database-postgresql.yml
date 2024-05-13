@@ -11,11 +11,11 @@ spec:
   compositeTypeRef:
     apiVersion: eazytraining.io/v1alpha1
     kind: Database
-  resources:  
+  resources:
     - name: rdsinstance
       base:
-        apiVersion: database.aws.crossplane.io/v1beta1
-        kind: RDSInstance
+        apiVersion: rds.aws.upbound.io/v1beta1
+        kind: Instance
         metadata:
           annotations:
             crossplane.io/external-name: # patched
@@ -23,7 +23,7 @@ spec:
           providerConfigRef:
             name: default
           forProvider:
-            region: us-west-2
+            region: us-east-1
             allocatedStorage: 5
             dbInstanceClass: db.t3.micro
             engine: postgres

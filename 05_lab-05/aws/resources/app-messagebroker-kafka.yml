@@ -14,7 +14,7 @@ spec:
   resources:
     - name: kafka
       base:
-        apiVersion: kafka.aws.crossplane.io/v1alpha1
+        apiVersion: kafka.aws.upbound.io/v1beta1
         kind: Cluster
         metadata:
           annotations:
@@ -26,10 +26,10 @@ spec:
             clusterName: kafka
             kafkaVersion: 2.6.1
             numberOfBrokerNodes: 2
-            region: us-west-2
+            region: us-east-1
             brokerNodeGroupInfo:
               instanceType: kafka.t3.small
-              storageInfo: 
+              storageInfo:
                 ebsStorageInfo:
                   volumeSize: 1
           writeConnectionSecretToRef:
