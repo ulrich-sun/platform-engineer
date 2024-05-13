@@ -56,7 +56,7 @@ sudo mv /tmp/argocd-${ARGOCD_VERSION} /usr/local/bin/argocd
 argocd login <ip of argocd-server cluster IP service>:80
 
 # add to argocd
-argocd cluster add team-a-dev-env-txrr6 --kubeconfig=/tmp/kubeconfig-team-a-dev-env-<id>
+argocd cluster add my-vcluster --kubeconfig=/tmp/kubeconfig-team-a-dev-env-<id>
 
 # connect to argocd CD 
 kubectl port-forward svc/argocd-server -n argocd 8080:443 --address 0.0.0.0 
