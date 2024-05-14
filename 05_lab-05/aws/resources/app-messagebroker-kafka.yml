@@ -28,10 +28,10 @@ spec:
             numberOfBrokerNodes: 2
             region: us-east-1
             brokerNodeGroupInfo:
-              instanceType: kafka.t3.small
-              storageInfo:
-                ebsStorageInfo:
-                  volumeSize: 1
+              - instanceType: kafka.t3.small
+                storageInfo:
+                  - ebsStorageInfo:
+                    - volumeSize: 1
           writeConnectionSecretToRef:
             namespace: crossplane-system
             name: kafka

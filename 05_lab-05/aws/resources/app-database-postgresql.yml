@@ -25,10 +25,15 @@ spec:
           forProvider:
             region: us-east-1
             allocatedStorage: 5
-            dbInstanceClass: db.t3.micro
+            instanceClass: db.t3.micro
+            passwordSecretRef:
+              key: password
+              name: example-dbinstance
+              namespace: default
             engine: postgres
             engineVersion: "13"
-            masterUsername: salaboy
+            skipFinalSnapshot: true
+            username: salaboy
             port: 5432
           writeConnectionSecretToRef:
             namespace: crossplane-system
