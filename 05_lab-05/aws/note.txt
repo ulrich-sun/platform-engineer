@@ -4,14 +4,17 @@ curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.
 sudo mv crossplane kubectl-crossplane
 sudo mv kubectl-crossplane /usr/local/bin
 
-# install aws provider
-kubectl crossplane xpkg install provider  xpkg.upbound.io/upbound/provider-aws:v0.21.0 crossplane-provider-aws
+# install aws providers
+kubectl crossplane xpkg install provider  xpkg.upbound.io/upbound/provider-aws-rds:v1.4.0 crossplane-provider-aws-rds
+kubectl crossplane xpkg install provider  xpkg.upbound.io/upbound/provider-aws-elasticache:v1.4.0 crossplane-provider-aws-redis
+kubectl crossplane xpkg install provider  xpkg.upbound.io/upbound/provider-aws-kafka:v1.4.0 crossplane-provider-aws-kafka
+kubectl crossplane xpkg install provider  xpkg.upbound.io/upbound/provider-aws-ec2:v1.4.0 crossplane-provider-aws-ec2
 kubectl get providers.pkg.crossplane.io
 
 # create .aws-credentials.txt file (please never commit and push this file on public repo)
 [default]
 aws_access_key_id = 
-aws_secret_access_key = 
+aws_secret_access_key = VB/
 
 kubectl create secret \
 generic aws-secret \
@@ -35,13 +38,31 @@ EOF
 # App Infrastructure on demand using Crossplane Compositions (in aws folder)
 kubectl apply -f resources/
 
-kubectl apply -f aws-db-keyvalue.yml
+# create example-dbinstance secret for database password
+kubectl create secret generic example-dbinstance --from-literal=username=salaboy --from-literal=password=conference-app
+
 kubectl apply -f aws-db-sql.yml
+kubectl get databases.eazytraining.io
+kubectl get instances.rds.aws.upbound.io
+kubectl describe instances.rds.aws.upbound.io  aws-db-sql-postgres
+
+kubectl apply -f aws-db-keyvalue.yml
+kubectl get databases.eazytraining.io
+kubectl get cluster.elasticache.aws.upbound.io
+kubectl describe cluster.elasticache.aws.upbound.io aws-db-keyavalue-redis
+
+
 kubectl apply -f aws-messagebroker-kafka.yml
+kubectl get messagebrokers.eazytraining.io
+kubectl get cluster.kafka.aws.upbound.io
+kubectl describe cluster.kafka.aws.upbound.io  aws-mb-kafka
 
 # Make sure to fill in the commented out aspects of the yaml file based off values from newly created AWS infrastructure.
 
 helm install conference oci://ghcr.io/diranetafen/conference-app --version v1.0.0 -f app-values.yaml
 kubectl get po
 
-
+# delete app
+kubectl delete -f aws-db-sql.yml
+kubectl delete -f aws-db-keyvalue.yml
+kubectl delete -f aws-messagebroker-kafka.yml

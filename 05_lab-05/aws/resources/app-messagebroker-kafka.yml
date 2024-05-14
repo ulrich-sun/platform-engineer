@@ -14,7 +14,7 @@ spec:
   resources:
     - name: kafka
       base:
-        apiVersion: kafka.aws.upbound.io/v1beta1
+        apiVersion: kafka.aws.upbound.io/v1beta2
         kind: Cluster
         metadata:
           annotations:
