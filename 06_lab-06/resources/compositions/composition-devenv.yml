@@ -24,14 +24,18 @@ spec:
             chart:
               name: vcluster
               repository: https://charts.loft.sh
-              version: "0.15.7"
+              version: "0.19.5"
             values:
               fallbackHostDns: true
               multiNamespaceMode:
+                enabled: false
+              ingress:
                 enabled: true
+                ingressClassName: nginx
+                host: team-a-vcluster.local.com
               sync:
                 persistentvolumeclaims:
-                  enabled: false
+                  enabled: true
                 #used for plugins
               storage:
                 persistence: false
