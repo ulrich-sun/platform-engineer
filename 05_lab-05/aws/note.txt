@@ -14,7 +14,7 @@ kubectl get providers.pkg.crossplane.io
 # create .aws-credentials.txt file (please never commit and push this file on public repo)
 [default]
 aws_access_key_id = 
-aws_secret_access_key = VB/
+aws_secret_access_key = 
 
 kubectl create secret \
 generic aws-secret \
@@ -52,10 +52,9 @@ kubectl get cluster.elasticache.aws.upbound.io
 kubectl describe cluster.elasticache.aws.upbound.io aws-db-keyavalue-redis
 
 
-kubectl apply -f aws-messagebroker-kafka.yml
-kubectl get messagebrokers.eazytraining.io
+kubectl apply -f kafka/
 kubectl get cluster.kafka.aws.upbound.io
-kubectl describe cluster.kafka.aws.upbound.io  aws-mb-kafka
+kubectl describe cluster.kafka.aws.upbound.io  kafka-cluster
 
 # Make sure to fill in the commented out aspects of the yaml file based off values from newly created AWS infrastructure.
 
@@ -65,4 +64,4 @@ kubectl get po
 # delete app
 kubectl delete -f aws-db-sql.yml
 kubectl delete -f aws-db-keyvalue.yml
-kubectl delete -f aws-messagebroker-kafka.yml
+kubectl delete -f kafka/
