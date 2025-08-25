@@ -126,9 +126,9 @@ spec:
               name: conference-app
               repository: oci://ghcr.io/ulrich-sun
               version: "v1.0.0"
-              pullSecretRef:
-                name: ghcr-credentials
-                namespace: crossplane-system
+              # pullSecretRef:
+              #   name: ghcr-credentials
+              #   namespace: crossplane-system
             values:
               install:
                 infrastructure: #patched
