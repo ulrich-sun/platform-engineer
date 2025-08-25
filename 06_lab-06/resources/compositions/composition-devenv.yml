@@ -124,7 +124,7 @@ spec:
           forProvider:
             chart:
               name: conference-app
-              repository: oci://ghcr.io/diranetafen
+              repository: oci://ghcr.io/ulrich-sun
               version: "v1.0.0"
               pullSecretRef:
                 name: ghcr-credentials
